@@ -68,9 +68,9 @@ angular.module('jajsApp').controller('HeaderController', ['$scope', '$http', 'Us
 
         var userDetails = UserService.get();
         var requestData = {
-            FirstName: userDetails.firstname,
-            LastName: userDetails.lastname,
-            Email: userDetails.email
+            FirstName: userDetails.FirstName,
+            LastName: userDetails.LastName,
+            Email: userDetails.Email
         };
         $http.put(appGlobalSettings.apiBaseUrl + '/User',
             JSON.stringify(requestData),
