@@ -1,4 +1,10 @@
-﻿var jajsApp = angular.module('jajsApp', ['ui.router']);
+﻿window.googleSignInDeferred = $.Deferred();
+
+var init = function () {
+    window.googleSignInDeferred.resolve('');
+};
+
+var jajsApp = angular.module('jajsApp', ['ui.router']);
 
 jajsApp.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/home');
@@ -10,7 +16,8 @@ jajsApp.config(function ($stateProvider, $urlRouterProvider) {
             views: {
                 'header':
                     {
-                        templateUrl: 'js/app/partials/header.html'
+                        templateUrl: 'js/app/partials/header.html',
+                        controller: 'HeaderController'
                     },
                 'footer':
                     {
