@@ -58,8 +58,10 @@ angular.module('jajsApp').controller('HeaderController', ['$scope', '$http', 'Us
     };
 
     $scope.Logout = function () {
-        UserService.logout();
-        $scope.isAuthenticated = false;
+        UserService.logout(function () {
+            $scope.isAuthenticated = false;
+            document.location.href = "/";
+        });        
     }
 
     ChangeStateToLogon();

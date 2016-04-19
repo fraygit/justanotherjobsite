@@ -22,17 +22,32 @@ jajsApp.config(function ($stateProvider, $urlRouterProvider) {
                 'footer':
                     {
                         templateUrl: 'js/app/partials/footer.html'
+                    },
+                'dashboardHeaderMenu':
+                    {
+                        templateUrl: 'js/app/partials/dashboardHeader.html',
+                        controller: 'DashboardHeaderController'
                     }
             }
         })
 
         .state('home.index', {
             url: '/home',
-            views:{
+            views: {
                 'container@': {
-                    templateUrl: 'js/app/templates/home.html'
+                    templateUrl: 'js/app/templates/home.html',
+                    controller: 'HomeController'
                 }
             }
-            
+        })
+
+        .state('home.dashboard', {
+            url: '/dashboard',
+            views: {
+                'container@': {
+                    templateUrl: 'js/app/templates/dashboard.html',
+                    controller: 'DashboardController'
+                }
+            }
         })
 });
