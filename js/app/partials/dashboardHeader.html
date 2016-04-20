@@ -3,11 +3,11 @@
         <div class="member-heading-nav">
             <ul>
                 <li><a href="candidate-manage-resume.html"><i class="fa fa-file-text-o"></i> Manage Resume</a></li>
-                <li class="active"><a href="candidate-manage-application.html"><i class="fa fa-newspaper-o"></i> Manage Application</a></li>
+                <li><a href="candidate-manage-application.html"><i class="fa fa-newspaper-o"></i> Manage Application</a></li>
                 <li><a href="candidate-bookmark-job.html"><i class="fa fa-heart"></i> Bookmarked Jobs</a></li>
                 <li><a href="candidate-job-alert.html"><i class="fa fa-bell-o"></i> Job Alerts</a></li>
                 <li class="divider" role="presentation"></li>
-                <li><a ui-sref="home.dashboard.myprofile"><i class="fa fa-user"></i> My Profile</a></li>
+                <li ng-class="{active: currentState == 'home.dashboard.myprofile'}"><a ui-sref="home.dashboard.myprofile"><i class="fa fa-user"></i> My Profile</a></li>
                 <li><a href="#"><i class="fa fa-sign-out"></i> Sign Out</a></li>
             </ul>
         </div>
