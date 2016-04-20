@@ -50,4 +50,13 @@ jajsApp.config(function ($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+
+        .state('home.dashboard.myprofile', {
+            url: '/myprofile',
+            views: {
+                'container@': {
+                    templateUrl: 'js/app/templates/myprofile.html'
+                }
+            }
+        })
 });
