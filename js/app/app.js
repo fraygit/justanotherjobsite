@@ -55,7 +55,18 @@ jajsApp.config(function ($stateProvider, $urlRouterProvider) {
             url: '/myprofile',
             views: {
                 'container@': {
-                    templateUrl: 'js/app/templates/myprofile.html'
+                    templateUrl: 'js/app/templates/myprofile.html',
+                    controller: 'MyProfileController'
+                }
+            }
+        })
+
+        .state('home.dashboard.editmyprofile', {
+            url: '/editmyprofile',
+            views: {
+                'container@': {
+                    templateUrl: 'js/app/templates/editmyprofile.html',
+                    controller: 'EditMyProfileController'
                 }
             }
         })

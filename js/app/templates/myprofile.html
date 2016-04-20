@@ -9,10 +9,8 @@
                         </div>
                         <div class="col-sm-9 candidate-detail">
                             <div class="candidate-title clearfix">
-                                <div class="pull-right">
-                                    <button class="btn btn-primary">Edit Basic Profile</button>
-                                </div>
-                                <h2>Suresh Patel</h2>
+                                <a class="btn btn-primary pull-right" ui-sref="home.dashboard.editmyprofile">Edit</a>
+                                <h2>{{ Profile.FirstName }} {{ Profile.LastName }}</h2>
                             </div>
                             <div class="candidate-info">
                                 <div class="row">
@@ -22,7 +20,7 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <i class="fa fa-map-marker text-primary"></i>
-                                        &nbsp;&nbsp;India, Mumbai
+                                        &nbsp;&nbsp;{{ Profile.Address }}
                                     </div>
                                     <div class="col-sm-6">
                                         <i class="fa fa-birthday-cake text-primary"></i>
@@ -30,12 +28,12 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <i class="fa fa-phone text-primary"></i>
-                                        &nbsp;&nbsp;9892944868
+                                        &nbsp;&nbsp;{{ Profile.Phone }}
                                     </div>
                                     <div class="col-sm-6 pull-right">
-                                        <a href="mailto:suresh.savliya@gmail.com">
+                                        <a href="mailto:{{ Profile.Email }}">
                                             <i class="fa fa-envelope text-primary"></i>
-                                            &nbsp;&nbsp;suresh.savliya@gmail.com
+                                            &nbsp;&nbsp;{{ Profile.Email }}
                                         </a>
                                     </div>
                                 </div>
@@ -150,9 +148,9 @@
                                                 </div>
                                                 <dl class="timeline-series">
                                                     <dt class="timeline-event">
-                                                        <div class="pull-right">
-                                                            <button class="btn btn-primary" onclick="alert();">Edit</button>
-                                                        </div>
+                                                        
+                                                        <a class="btn btn-primary pull-right" ui-sref="home.dashboard.editmyprofile">Edit</a>
+                                                        
                                                         <a>
                                                             A&amp;T Decoration<span class="tick tick-after">Designer</span>
                                                         </a>
