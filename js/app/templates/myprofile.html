@@ -148,40 +148,22 @@
                                     </div>
                                     <div class="col-md-9 col-sm-12">
                                         <div class="timeline-container experience">
-                                            <div class="timeline-wrapper ">
-                                                <div class="timeline-time">
-                                                    <span>2010 - 2014</span>
+                                            <div class="timeline-wrapper " ng-repeat="exp in WorkExperienceList" ng-class="{'last':$last}">
+                                                <div class="timeline-time ">
+                                                    <span>{{ exp.DateStart }} - {{ exp.DateEnd }}</span>
                                                 </div>
                                                 <dl class="timeline-series">
                                                     <dt class="timeline-event">
-                                                        
-                                                        <button class="btn btn-primary pull-right" ng-click="EditExperience()">Edit</button>
-                                                        
+
+                                                        <button class="btn btn-primary pull-right" ng-click="EditExperienceClick(exp.Id)">Edit</button>
+
                                                         <a>
-                                                            A&amp;T Decoration<span class="tick tick-after">Designer</span>
+                                                            {{ exp.CompanyName }}<span class="tick tick-after">{{ exp.JobTitle }}</span>
                                                         </a>
                                                     </dt>
                                                     <dd class="timeline-event-content">
                                                         <p>
-                                                            Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Nulla porttitor accumsan tincidunt. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem.
-                                                        </p>
-                                                        <br class="clear">
-                                                    </dd>
-                                                </dl>
-                                            </div>
-                                            <div class="timeline-wrapper last">
-                                                <div class="timeline-time">
-                                                    <span>2014 - 2015</span>
-                                                </div>
-                                                <dl class="timeline-series">
-                                                    <dt class="timeline-event">
-                                                        <a>
-                                                            Envato<span class="tick tick-after">Designer</span>
-                                                        </a>
-                                                    </dt>
-                                                    <dd class="timeline-event-content">
-                                                        <p>
-                                                            Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Nulla porttitor accumsan tincidunt. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem.
+                                                            {{ exp.JobDescription }}
                                                         </p>
                                                         <br class="clear">
                                                     </dd>
@@ -287,6 +269,8 @@
                             <textarea class="form-control" id="description" name="description" rows="8" ng-model="ExperienceDetail.JobDescription"></textarea>
                         </div>
                     </div>
+                    <div class="alert alert-success" role="alert" style="display:none;" id="pnlAddWorkSuccess">Successfully saved.</div>
+                    <div class="alert alert-danger" role="alert" style="display:none;" id="pnlAddWorkError">{{ EditExperience.Error }}</div>
                     <div class="form-group text-center">
                         <button type="button" class="btn btn-primary">Close</button>
                         <button type="button" class="btn btn-primary" ng-click="AddWork()">Add</button>

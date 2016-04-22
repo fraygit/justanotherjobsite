@@ -21,29 +21,95 @@ angular.module('jajsApp').controller('MyProfileController', ['$scope', '$http', 
             Title: "Add Experience"
         };
 
-        $scope.EditExperience = function () {
+        $scope.EditExperienceClick = function (id) {
+            $http.get(appGlobalSettings.apiBaseUrl + '/WorkExperience/' + id + '?token=' + encodeURIComponent(userDetails.token))
+                .then(function (data) {
+                    $.each(data.data, function (index, item) {
+                        $scope.ExperienceDetail = data.data;
+                        setTimeout(function () {
+                            var startDate = new Date($scope.ExperienceDetail.DateStart);
+                            $("#PeriodFrom").val(startDate.getDate() + "-" + monthNamesShort[startDate.getMonth()] + '-' + startDate.getFullYear());
+                            var endDate = new Date($scope.ExperienceDetail.DateEnd);
+                            $("#PeriodTo").val(endDate.getDate() + "-" + monthNamesShort[endDate.getMonth()] + '-' + endDate.getFullYear());
+
+                            $scope.requestAddWork.DateStart = startDate;
+                            $scope.requestAddWork.DateEnd = endDate;
+                        }, 1000);
+                        
+                    });
+                }, function (error) {
+                    console.log(error);
+                });
             $('#editExperience').modal('show');
         };
 
         $scope.AddExperience = function () {
             $scope.EditExperience = {
-                Title: "Add Experience"
+                Title: "Add Experience",
+                Error: ''
             };
+            $scope.ExperienceDetail = {};
             $('#editExperience').modal('show');
         };
 
+        $scope.requestAddWork = {};
+        $("#PeriodFrom").datetimepicker({
+            timepicker: false,
+            onChangeDateTime: function (dp, $input) {
+                $scope.requestAddWork.DateStart = dp;
+            },
+            format: 'd-M-Y'
+        });
+
+        $("#PeriodTo").datetimepicker({
+            timepicker: false,
+            onChangeDateTime: function (dp, $input) {
+                $scope.requestAddWork.DateEnd = dp;
+            },
+            format: 'd-M-Y'
+        });
+
         $scope.AddWork = function () {
-            if ($scope.EditExperience.Title == "Add Experience") {
+            $scope.requestAddWork.Username = userDetails.Email;
+            $scope.requestAddWork.Id = $scope.ExperienceDetail.Id;
+            $scope.requestAddWork.CompanyName = $scope.ExperienceDetail.CompanyName;
+            $scope.requestAddWork.JobTitle = $scope.ExperienceDetail.JobTitle;
+            $scope.requestAddWork.JobDescription = $scope.ExperienceDetail.JobDescription;
+
+            if ($scope.ExperienceDetail.Id == null || $scope.ExperienceDetail.Id == undefined) {
                 $http.put(appGlobalSettings.apiBaseUrl + '/WorkExperience?token=' + encodeURIComponent(userDetails.token),
-                    JSON.stringify($scope.ExperienceDetail),
+                    JSON.stringify($scope.requestAddWork),
                     {
                         headers: {
                             'Content-Type': 'application/json'
                         }
                     }
                     ).then(function (data) {
-                        console.log(data);
+                        $("#pnlAddWorkError").hide();
+                        $("#pnlAddWorkSuccess").slideDown();
+                        $scope.ExperienceDetail.Id = data.data.Id;
+                        retrieveWorkExperience();
                     }, function (error) {
+                        $scope.EditExperience.Error = error.data;
+                        $("#pnlAddWorkError").slideDown();
+                    });
+            }
+            else {
+                $http.post(appGlobalSettings.apiBaseUrl + '/WorkExperience?token=' + encodeURIComponent(userDetails.token) + '&id=' + encodeURIComponent($scope.requestAddWork.Id),
+                    JSON.stringify($scope.requestAddWork),
+                    {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                    ).then(function (data) {
+                        $("#pnlAddWorkError").hide();
+                        $("#pnlAddWorkSuccess").slideDown();
+                        $scope.ExperienceDetail.Id = data.data.Id;
+                        retrieveWorkExperience();
+                    }, function (error) {
+                        $scope.EditExperience.Error = error.data;
+                        $("#pnlAddWorkError").slideDown();
                     });
             }
         }
@@ -52,6 +118,12 @@ angular.module('jajsApp').controller('MyProfileController', ['$scope', '$http', 
         var retrieveWorkExperience = function () {
             $http.get(appGlobalSettings.apiBaseUrl + '/WorkExperience?token=' + encodeURIComponent(userDetails.token) + "&email=" + encodeURIComponent(userDetails.Email))
                 .then(function (data) {
+                    $.each(data.data, function (index, item) {
+                        var dateStart = new Date(item.DateStart);
+                        item.DateStart = monthNames[dateStart.getMonth()] + ' ' + dateStart.getFullYear();
+                        var dateEnd = new Date(item.DateEnd);
+                        item.DateEnd = monthNames[dateEnd.getMonth()] + ' ' + dateEnd.getFullYear();
+                    });
                     $scope.WorkExperienceList = data.data;
                 }, function (error) {
                     console.log(error);
