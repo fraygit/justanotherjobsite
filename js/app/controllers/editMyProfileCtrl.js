@@ -3,6 +3,10 @@ angular.module('jajsApp').controller('EditMyProfileController', ['$scope', '$htt
     var userDetails = UserService.get();
     if (userDetails.token != '' && userDetails.token != undefined) {
 
+        $("#birthday").datetimepicker({
+            timepicker: false,
+            format: 'd-M-Y'
+        });
         $scope.Profile = {};
 
         $http.get(appGlobalSettings.apiBaseUrl + '/Profile?token=' + encodeURIComponent(userDetails.token) + "&email=" + encodeURIComponent(userDetails.Email))
