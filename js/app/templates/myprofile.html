@@ -9,7 +9,7 @@
                         </div>
                         <div class="col-sm-9 candidate-detail">
                             <div class="candidate-title clearfix">
-                                <a class="btn btn-primary pull-right" ui-sref="home.dashboard.editmyprofile">Edit</a>
+                                <a class="btn btn-primary btn-sm pull-right" ui-sref="home.dashboard.editmyprofile">Edit</a>
                                 <h2>{{ Profile.FirstName }} {{ Profile.LastName }}</h2>
                             </div>
                             <div class="candidate-info">
@@ -154,8 +154,12 @@
                                                 </div>
                                                 <dl class="timeline-series">
                                                     <dt class="timeline-event">
-
-                                                        <button class="btn btn-primary pull-right" ng-click="EditExperienceClick(exp.Id)">Edit</button>
+                                                        <div class="pull-right">
+                                                            <button class="btn btn-primary btn-sm" ng-click="EditExperienceClick(exp.Id)">Edit</button>
+                                                            &nbsp;
+                                                            <button class="btn btn-primary btn-sm" ng-click="DeleteClick(exp.Id)">Delete</button>
+                                                        </div>
+                                                        
 
                                                         <a>
                                                             {{ exp.CompanyName }}<span class="tick tick-after">{{ exp.JobTitle }}</span>
@@ -278,3 +282,16 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modalDeleteConfirmation">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                Are you sure you want to delete this work experience? 
+                <button type="button" class="btn btn-primary" ng-click="DeleteWorkExperience()">Yes</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

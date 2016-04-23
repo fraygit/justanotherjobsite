@@ -19,6 +19,7 @@ angular.module('jajsApp').controller('MyProfileController', ['$scope', '$http', 
             JobTitle: '',
             JobDescription: ''
         };
+        $scope.DeleteId = '';
 
         $http.get(appGlobalSettings.apiBaseUrl + '/Profile?token=' + encodeURIComponent(userDetails.token) + "&email=" + encodeURIComponent(userDetails.Email))
             .then(function (data) {
@@ -76,6 +77,21 @@ angular.module('jajsApp').controller('MyProfileController', ['$scope', '$http', 
             },
             format: 'd-M-Y'
         });
+
+        $scope.DeleteClick = function (id) {
+            $('#modalDeleteConfirmation').modal('show');
+            $scope.DeleteId = id;
+        };
+
+        $scope.DeleteWorkExperience = function () {
+            $http.delete(appGlobalSettings.apiBaseUrl + '/WorkExperience/' + $scope.DeleteId + '?token=' + encodeURIComponent(userDetails.token))
+                .then(function (data) {
+                    retrieveWorkExperience();
+                    $('#modalDeleteConfirmation').modal('hide');
+                }, function (error) {
+                    console.log(error);
+                });
+        };
 
         $scope.AddWork = function () {
             $scope.requestAddWork.Username = userDetails.Email;
