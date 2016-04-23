@@ -148,7 +148,7 @@
                                     </div>
                                     <div class="col-md-9 col-sm-12">
                                         <div class="timeline-container experience">
-                                            <div class="timeline-wrapper " ng-repeat="exp in WorkExperienceList" ng-class="{'last':$last}">
+                                            <div class="timeline-wrapper " ng-repeat="exp in WorkExperienceList" ng-class="{'last':$last} " >
                                                 <div class="timeline-time ">
                                                     <span>{{ exp.DateStart }} - {{ exp.DateEnd }}</span>
                                                 </div>
@@ -162,9 +162,7 @@
                                                         </a>
                                                     </dt>
                                                     <dd class="timeline-event-content">
-                                                        <p>
-                                                            {{ exp.JobDescription }}
-                                                        </p>
+                                                        <div ng-bind-html="exp.JobDescription"></div>
                                                         <br class="clear">
                                                     </dd>
                                                 </dl>

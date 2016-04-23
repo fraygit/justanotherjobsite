@@ -1,7 +1,17 @@
 ﻿
-angular.module('jajsApp').controller('MyProfileController', ['$scope', '$http', 'UserService', '$state', '$rootScope', function ($scope, $http, UserService, $state, $rootScope) {
+angular.module('jajsApp').controller('MyProfileController', ['$scope', '$http', 'UserService', '$state', '$rootScope', '$sce', function ($scope, $http, UserService, $state, $rootScope, $sce) {
     var userDetails = UserService.get();
     if (userDetails.token != '' && userDetails.token != undefined) {
+
+        tinymce.init({
+            selector: '#description',
+            height: 500,
+            toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            content_css: [
+              '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
+              '//www.tinymce.com/css/codepen.min.css'
+            ]
+        });
 
         $scope.Profile = {};
         $scope.ExperienceDetail = {
@@ -24,19 +34,17 @@ angular.module('jajsApp').controller('MyProfileController', ['$scope', '$http', 
         $scope.EditExperienceClick = function (id) {
             $http.get(appGlobalSettings.apiBaseUrl + '/WorkExperience/' + id + '?token=' + encodeURIComponent(userDetails.token))
                 .then(function (data) {
-                    $.each(data.data, function (index, item) {
-                        $scope.ExperienceDetail = data.data;
-                        setTimeout(function () {
-                            var startDate = new Date($scope.ExperienceDetail.DateStart);
-                            $("#PeriodFrom").val(startDate.getDate() + "-" + monthNamesShort[startDate.getMonth()] + '-' + startDate.getFullYear());
-                            var endDate = new Date($scope.ExperienceDetail.DateEnd);
-                            $("#PeriodTo").val(endDate.getDate() + "-" + monthNamesShort[endDate.getMonth()] + '-' + endDate.getFullYear());
+                    $scope.ExperienceDetail = data.data;
+                    tinymce.activeEditor.setContent(data.data.JobDescription);
+                    setTimeout(function () {
+                        var startDate = new Date($scope.ExperienceDetail.DateStart);
+                        $("#PeriodFrom").val(startDate.getDate() + "-" + monthNamesShort[startDate.getMonth()] + '-' + startDate.getFullYear());
+                        var endDate = new Date($scope.ExperienceDetail.DateEnd);
+                        $("#PeriodTo").val(endDate.getDate() + "-" + monthNamesShort[endDate.getMonth()] + '-' + endDate.getFullYear());
 
-                            $scope.requestAddWork.DateStart = startDate;
-                            $scope.requestAddWork.DateEnd = endDate;
-                        }, 1000);
-                        
-                    });
+                        $scope.requestAddWork.DateStart = startDate;
+                        $scope.requestAddWork.DateEnd = endDate;
+                    }, 1000);
                 }, function (error) {
                     console.log(error);
                 });
@@ -74,7 +82,7 @@ angular.module('jajsApp').controller('MyProfileController', ['$scope', '$http', 
             $scope.requestAddWork.Id = $scope.ExperienceDetail.Id;
             $scope.requestAddWork.CompanyName = $scope.ExperienceDetail.CompanyName;
             $scope.requestAddWork.JobTitle = $scope.ExperienceDetail.JobTitle;
-            $scope.requestAddWork.JobDescription = $scope.ExperienceDetail.JobDescription;
+            $scope.requestAddWork.JobDescription = tinymce.activeEditor.getContent();
 
             if ($scope.ExperienceDetail.Id == null || $scope.ExperienceDetail.Id == undefined) {
                 $http.put(appGlobalSettings.apiBaseUrl + '/WorkExperience?token=' + encodeURIComponent(userDetails.token),
@@ -123,6 +131,7 @@ angular.module('jajsApp').controller('MyProfileController', ['$scope', '$http', 
                         item.DateStart = monthNames[dateStart.getMonth()] + ' ' + dateStart.getFullYear();
                         var dateEnd = new Date(item.DateEnd);
                         item.DateEnd = monthNames[dateEnd.getMonth()] + ' ' + dateEnd.getFullYear();
+                        item.JobDescription = $sce.trustAsHtml(item.JobDescription);
                     });
                     $scope.WorkExperienceList = data.data;
                 }, function (error) {
@@ -130,6 +139,8 @@ angular.module('jajsApp').controller('MyProfileController', ['$scope', '$http', 
                 });
         };
         retrieveWorkExperience();
+
+
 
     }
     else {
