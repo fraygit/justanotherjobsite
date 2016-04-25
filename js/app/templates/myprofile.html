@@ -1,4 +1,5 @@
-﻿<div class="container-boxed max offset main-content">
+﻿
+<div class="container-boxed max offset main-content">
     <div class="row">
         <div class="noo-main col-md-12">
             <article class="resume">
@@ -159,7 +160,7 @@
                                                             &nbsp;
                                                             <button class="btn btn-primary btn-sm" ng-click="DeleteClick(exp.Id)">Delete</button>
                                                         </div>
-                                                        
+
 
                                                         <a>
                                                             {{ exp.CompanyName }}<span class="tick tick-after">{{ exp.JobTitle }}</span>
@@ -254,6 +255,12 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label class="col-sm-3 control-label">Location</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="joblocation" placeholder="City">
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-sm-3 control-label">Time Period</label>
                         <div class="col-sm-3">
                             <input class="form-control" placeholder="From" id="PeriodFrom" ng-model="ExperienceDetail.DateStart">
@@ -262,7 +269,7 @@
                             <input class="form-control" placeholder="To" id="PeriodTo" ng-model="ExperienceDetail.DateEnd">
                         </div>
                         <div class="col-sm-3">
-                            <input type="checkbox" ng-model="ExperienceDetail.IsCurrent" /> Currently in this role 
+                            <input type="checkbox" ng-model="ExperienceDetail.IsCurrent" /> Currently in this role
                         </div>
                     </div>
                     <div class="form-group row">
@@ -288,7 +295,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                Are you sure you want to delete this work experience? 
+                Are you sure you want to delete this work experience?
                 <button type="button" class="btn btn-primary" ng-click="DeleteWorkExperience()">Yes</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
             </div>

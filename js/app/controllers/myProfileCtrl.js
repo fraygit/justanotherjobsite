@@ -157,6 +157,15 @@ angular.module('jajsApp').controller('MyProfileController', ['$scope', '$http', 
         retrieveWorkExperience();
 
 
+        var locationElement = (document.getElementById("joblocation"));
+        var autocomplete = new google.maps.places.Autocomplete(locationElement, 
+            { types: ['geocode'] });
+        autocomplete.addListener('place_changed', function () {
+            var place = autocomplete.getPlace();
+            var searchLat = place.geometry.location.lat();
+            var searchLng = place.geometry.location.lng();
+        });
+
 
     }
     else {
