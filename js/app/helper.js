@@ -11,3 +11,7 @@ var monthNamesShort = [
   "Aug", "Sep", "Oct",
   "Nov", "Dec"
 ];
+
+function isBlank(str) {
+    return (!str || /^\s*$/.test(str));
+}

@@ -164,6 +164,8 @@
 
                                                         <a>
                                                             {{ exp.CompanyName }}<span class="tick tick-after">{{ exp.JobTitle }}</span>
+                                                            <br />
+                                                            <span class="tick tick-after" ng-show="{{ exp.Location.length > 0 }}">{{ exp.Location }}</span>
                                                         </a>
                                                     </dt>
                                                     <dd class="timeline-event-content">
@@ -257,7 +259,7 @@
                     <div class="form-group row">
                         <label class="col-sm-3 control-label">Location</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="joblocation" placeholder="City">
+                            <input type="text" class="form-control" id="joblocation" placeholder="City" ng-model="ExperienceDetail.Location">
                         </div>
                     </div>
                     <div class="form-group row">

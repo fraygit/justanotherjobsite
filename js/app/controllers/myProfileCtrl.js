@@ -48,6 +48,17 @@ angular.module('jajsApp').controller('MyProfileController', ['$scope', '$http', 
                         $scope.requestAddWork.DateStart = startDate;
                         $scope.requestAddWork.DateEnd = endDate;
                     }, 1000);
+
+                    if (!isBlank(data.data.City)) {
+                        $scope.ExperienceDetail.Location = data.data.City;
+                    }
+                    if (!isBlank(data.data.City) && !isBlank(data.data.Country)) {
+                        $scope.ExperienceDetail.Location += ", " + data.data.Country;
+                    }
+                    if (isBlank(data.data.City) && !isBlank(data.data.Country)) {
+                        $scope.ExperienceDetail.Location = data.data.Country;
+                    }
+
                 }, function (error) {
                     console.log(error);
                 });
@@ -152,6 +163,15 @@ angular.module('jajsApp').controller('MyProfileController', ['$scope', '$http', 
                         var dateEnd = new Date(item.DateEnd);
                         item.DateEnd = monthNames[dateEnd.getMonth()] + ' ' + dateEnd.getFullYear();
                         item.JobDescription = $sce.trustAsHtml(item.JobDescription);
+                        if (!isBlank(item.City)) {
+                            item.Location = item.City;
+                        }
+                        if (!isBlank(item.City) && !isBlank(item.Country)) {
+                            item.Location += ", " + item.Country;
+                        }
+                        if (isBlank(item.City) && !isBlank(item.Country)) {
+                            item.Location = item.Country;
+                        }
                     });
                     $scope.WorkExperienceList = data.data;
                 }, function (error) {
