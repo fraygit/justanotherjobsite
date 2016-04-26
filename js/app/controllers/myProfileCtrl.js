@@ -17,7 +17,9 @@ angular.module('jajsApp').controller('MyProfileController', ['$scope', '$http', 
         $scope.ExperienceDetail = {
             CompanyName: '',
             JobTitle: '',
-            JobDescription: ''
+            JobDescription: '',
+            Country: '',
+            City: ''
         };
         $scope.DeleteId = '';
 
@@ -99,6 +101,8 @@ angular.module('jajsApp').controller('MyProfileController', ['$scope', '$http', 
             $scope.requestAddWork.CompanyName = $scope.ExperienceDetail.CompanyName;
             $scope.requestAddWork.JobTitle = $scope.ExperienceDetail.JobTitle;
             $scope.requestAddWork.JobDescription = tinymce.activeEditor.getContent();
+            $scope.requestAddWork.City = $scope.ExperienceDetail.City;
+            $scope.requestAddWork.Country = $scope.ExperienceDetail.Country;
 
             if ($scope.ExperienceDetail.Id == null || $scope.ExperienceDetail.Id == undefined) {
                 $http.put(appGlobalSettings.apiBaseUrl + '/WorkExperience?token=' + encodeURIComponent(userDetails.token),
@@ -157,11 +161,20 @@ angular.module('jajsApp').controller('MyProfileController', ['$scope', '$http', 
         retrieveWorkExperience();
 
 
+
         var locationElement = (document.getElementById("joblocation"));
         var autocomplete = new google.maps.places.Autocomplete(locationElement, 
             { types: ['geocode'] });
         autocomplete.addListener('place_changed', function () {
             var place = autocomplete.getPlace();
+            $.each(place.address_components, function (index, item) {
+                if (item.types[0] == "locality") {
+                    $scope.ExperienceDetail.City = item.long_name;
+                }
+                if (item.types[0] == "country") {
+                    $scope.ExperienceDetail.Country = item.long_name;
+                }
+            });
             var searchLat = place.geometry.location.lat();
             var searchLng = place.geometry.location.lng();
         });
