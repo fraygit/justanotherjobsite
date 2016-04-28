@@ -220,6 +220,9 @@
                                                     </dd>
                                                 </dl>
                                             </div>
+                                            <div class="pull-right">
+                                                <button class="btn btn-primary" ng-click="AddEducation()">Add Education</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -304,3 +307,56 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<div class="modal fade" id="modalEditEducation" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">{{ EditEducation.Title }}</h4>
+            </div>
+            <div class="modal-body">
+                <form class="noo-ajax-register-form form-horizontal">
+                    <div class="form-group row user_login_container">
+                        <label class="col-sm-3 control-label">Institution</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="user_login" placeholder="Company Name" ng-model="EducationDetail.Institution">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Degree</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="user_email" required placeholder="Job Title" ng-model="EducationDetail.Degree">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Location</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="educationLocation" placeholder="City" ng-model="EducationDetail.Location">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Date Attained</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" placeholder="From" id="PeriodFrom" ng-model="EducationDetail.DateAttained">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Description</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" id="description" name="description" rows="3" ng-model="EducationDetail.Description"></textarea>
+                        </div>
+                    </div>
+                    <div class="alert alert-success" role="alert" style="display:none;" id="pnlAddEducationSuccess">Successfully saved.</div>
+                    <div class="alert alert-danger" role="alert" style="display:none;" id="pnlAddEducationkError">{{ EditExperience.Error }}</div>
+                    <div class="form-group text-center">
+                        <button type="button" class="btn btn-primary">Close</button>
+                        <button type="button" class="btn btn-primary" ng-click="AddWork()">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -74,6 +74,12 @@ angular.module('jajsApp').controller('MyProfileController', ['$scope', '$http', 
             $('#editExperience').modal('show');
         };
 
+        $scope.EducationDetail = {Title: ''};
+        $scope.AddEducation = function () {
+            $scope.EducationDetail.Title = "Add Education";
+            $('#modalEditEducation').modal('show');
+        };
+
         $scope.requestAddWork = {};
         $("#PeriodFrom").datetimepicker({
             timepicker: false,
